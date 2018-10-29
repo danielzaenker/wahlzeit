@@ -97,4 +97,16 @@ public class Coordinate {
 		Coordinate coordinate = (Coordinate) other;
 		return isEqual(coordinate);
 	}
+
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public double getZ() {
+		return z;
+	}
 }
