@@ -21,6 +21,7 @@
 package org.wahlzeit.services;
 
 import junit.framework.TestCase;
+import org.junit.Assert;
 
 /**
  * Test cases for the EmailAddress class.
@@ -69,10 +70,22 @@ public class EmailAddressTest extends TestCase {
 	/**
 	 *
 	 */
+	protected EmailAddress getEmailAddressOrAssert(String ea) {
+		try {
+			return EmailAddress.getFromString(ea);
+		} catch (IllegalArgumentException ex) {
+			Assert.fail("failed to create the email address");
+			return null;
+		}
+	}
+
+	/**
+	 *
+	 */
 	public void testInternetAddress() {
-		assertNotNull(EmailAddress.getFromString("foo@bar").asInternetAddress());
-		assertNotNull(EmailAddress.getFromString("foo@bar.org").asInternetAddress());
-		assertNotNull(EmailAddress.getFromString("foo.42@bar.org").asInternetAddress());
+		assertNotNull(getEmailAddressOrAssert("foo@bar").asInternetAddress());
+		assertNotNull(getEmailAddressOrAssert("foo@bar.org").asInternetAddress());
+		assertNotNull(getEmailAddressOrAssert("foo.42@bar.org").asInternetAddress());
 	}
 }
 
