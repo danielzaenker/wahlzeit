@@ -27,23 +27,27 @@ public class Coordinate {
 	/**
 	 * x, y and z component of the coordinate
 	 */
-	private double x = 0.0;
-	private double y = 0.0;
-	private double z = 0.0;
+	private final double x;
+	private final double y;
+	private final double z;
 
 	/**
 	 * Epsilon value for double comparision
 	 */
 	private static final double EPSILON = 0.0000001;
 
-	static private boolean almostEqual(double a, double b) {
+	private static boolean almostEqual(double a, double b) {
 		return Math.abs(a - b) < EPSILON;
 	}
 
 	/**
 	 * Default constructor
 	 */
-	public Coordinate() {}
+	public Coordinate() {
+		this.x = 0.0;
+		this.y = 0.0;
+		this.z = 0.0;
+	}
 
 	/**
 	 * Creates a coordinate from a x, y and z value
@@ -65,6 +69,9 @@ public class Coordinate {
 	 * @return the calculated distance
 	 */
 	public double getDistance(Coordinate other) {
+		if (other == null) {
+			throw new IllegalArgumentException("The other coordinate must not be null");
+		}
 		double connectionX = other.x - x;
 		double connectionY = other.y - y;
 		double connectionZ = other.z - z;
@@ -79,6 +86,9 @@ public class Coordinate {
 	 * @return true if the coordinates are the same, false otherwise
 	 */
 	public boolean isEqual(Coordinate other) {
+		if (other == null) {
+			return false;
+		}
 		return almostEqual(x, other.x) && almostEqual(y, other.y) && almostEqual(z, other.z);
 	}
 

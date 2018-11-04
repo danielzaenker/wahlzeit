@@ -47,6 +47,11 @@ public class CoordinateTest {
 		assertEquals(0.0, c1.getDistance(c1), DELTA);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetDistanceWithException() {
+		c1.getDistance(null);
+	}
+
 	@Test
 	public void testIsEqual() {
 		assertTrue(c1.isEqual(c2));
@@ -54,6 +59,7 @@ public class CoordinateTest {
 		assertTrue(c1.isEqual(c1));
 		assertFalse(c1.isEqual(c3));
 		assertFalse(c3.isEqual(c2));
+		assertFalse(c1.isEqual(null));
 	}
 
 	@Test
@@ -64,5 +70,6 @@ public class CoordinateTest {
 		assertTrue(c1.equals(c1));
 		assertFalse(c1.equals(c3));
 		assertFalse(c1.equals(object));
+		assertFalse(c1.equals(null));
 	}
 }

@@ -28,7 +28,7 @@ public class Location {
 	/**
 	 * The coordinate of this location
 	 */
-	public Coordinate coordinate;
+	private Coordinate coordinate;
 
 	/**
 	 * Creates a location with the default coordinate
@@ -42,6 +42,22 @@ public class Location {
 	 * @param coordinate the coordinate of the location
 	 */
 	public Location(Coordinate coordinate) {
+		this.coordinate = coordinate;
+	}
+
+	/**
+	 * Returns the coordinate of this location
+	 * @return
+	 */
+	public Coordinate getCoordinate() {
+		return coordinate;
+	}
+
+	/**
+	 * Sets the coordinate of this location
+	 * @param coordinate
+	 */
+	public void setCoordinate(Coordinate coordinate) {
 		this.coordinate = coordinate;
 	}
 }

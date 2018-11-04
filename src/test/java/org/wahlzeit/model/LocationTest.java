@@ -34,12 +34,12 @@ public class LocationTest {
 
 		Location location1 = new Location(c1);
 		Location location2 = new Location();
-		assertNotNull(location1.coordinate);
-		assertNotNull(location2.coordinate);
-		assertSame(location1.coordinate, c1);
-		assertTrue(location2.coordinate.isEqual(zeroCoordinate));
+		assertNotNull(location1.getCoordinate());
+		assertNotNull(location2.getCoordinate());
+		assertSame(location1.getCoordinate(), c1);
+		assertTrue(location2.getCoordinate().isEqual(zeroCoordinate));
 
-		location1.coordinate = c2;
-		assertSame(location1.coordinate, c2);
+		location1.setCoordinate(c2);
+		assertSame(location1.getCoordinate(), c2);
 	}
 }
