@@ -70,7 +70,7 @@ public class Photo extends DataObject {
 	/**
 	 * The location of this photo
 	 */
-	public Location location;
+	protected Location location = null;
 
 	protected PhotoId id = null;
 	
@@ -422,5 +422,21 @@ public class Photo extends DataObject {
 	public void setNoNewPraise() {
 		noVotesAtLastNotification = noVotes;
 		incWriteCount();
+	}
+
+	/**
+	 * Returns the location of this photo
+	 * @return
+	 */
+	public Location getLocation() {
+		return location;
+	}
+
+	/**
+	 * Sets the location of this photo
+	 * @param location
+	 */
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 }
