@@ -42,4 +42,15 @@ public class LocationTest {
 		location1.setCoordinate(c2);
 		assertSame(location1.getCoordinate(), c2);
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidCoordinate1() {
+		Location location = new Location(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testInvalidCoordinate2() {
+		Location location = new Location();
+		location.setCoordinate(null);
+	}
 }

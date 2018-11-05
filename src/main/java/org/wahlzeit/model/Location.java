@@ -34,15 +34,16 @@ public class Location {
 	 * Creates a location with the default coordinate
 	 */
 	public Location() {
-		coordinate = new Coordinate();
+		this(new Coordinate());
 	}
 
 	/**
 	 * Creates a location with a coordinate
 	 * @param coordinate the coordinate of the location
+	 * @throws IllegalArgumentException if the coordinate is null
 	 */
 	public Location(Coordinate coordinate) {
-		this.coordinate = coordinate;
+		setCoordinate(coordinate);
 	}
 
 	/**
@@ -56,8 +57,12 @@ public class Location {
 	/**
 	 * Sets the coordinate of this location
 	 * @param coordinate
+	 * @throws IllegalArgumentException if the coordinate is null
 	 */
 	public void setCoordinate(Coordinate coordinate) {
+		if (coordinate == null) {
+			throw new IllegalArgumentException("The coordinate must not be null");
+		}
 		this.coordinate = coordinate;
 	}
 }
