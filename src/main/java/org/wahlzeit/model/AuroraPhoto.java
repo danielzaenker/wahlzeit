@@ -25,7 +25,7 @@ import com.googlecode.objectify.annotation.Subclass;
 /**
  * Specializes the Photo class for photos of Auroras
  */
-@Subclass(index = true)
+@Subclass
 public class AuroraPhoto extends Photo {
 
 	/**
