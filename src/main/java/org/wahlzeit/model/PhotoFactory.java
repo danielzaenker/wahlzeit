@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 /**
  * An Abstract Factory for creating photos and related objects.
  */
-public class PhotoFactory {
+public abstract class PhotoFactory {
 
 	private static final Logger log = Logger.getLogger(PhotoFactory.class.getName());
 	/**
@@ -55,7 +55,7 @@ public class PhotoFactory {
 	public static synchronized PhotoFactory getInstance() {
 		if (instance == null) {
 			log.config(LogBuilder.createSystemMessage().addAction("setting generic PhotoFactory").toString());
-			setInstance(new PhotoFactory());
+			setInstance(new AuroraPhotoFactory());
 		}
 
 		return instance;

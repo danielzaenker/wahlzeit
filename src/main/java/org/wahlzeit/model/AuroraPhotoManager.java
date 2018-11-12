@@ -20,26 +20,13 @@
 
 package org.wahlzeit.model;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.wahlzeit.model.persistence.PersistenceTestSuite;
+/**
+ * Specializes the PhotoManager for the AuroraPhoto class
+ */
+public class AuroraPhotoManager extends PhotoManager {
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-		PersistenceTestSuite.class,
-		AccessRightsTest.class,
-		CoordinateTest.class,
-		FlagReasonTest.class,
-		GenderTest.class,
-		GuestTest.class,
-		LocationTest.class,
-		PhotoFactoryTest.class,
-		PhotoFilterTest.class,
-		TagsTest.class,
-		UserStatusTest.class,
-		ValueTest.class
-})
-
-public class ModelTestSuite {
-	/** empty **/
+	@Override
+	protected Photo loadPhotoFromId(PhotoId id) {
+		return AuroraPhotoFactory.getInstance().loadPhoto(id);
+	}
 }

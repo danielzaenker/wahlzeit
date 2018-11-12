@@ -30,25 +30,18 @@ import org.wahlzeit.services.Persistent;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
  * A photo manager provides access to and manages photos.
  */
-public class PhotoManager extends ObjectManager {
+public abstract class PhotoManager extends ObjectManager {
 
 	/**
 	 *
 	 */
-	protected static final PhotoManager instance = new PhotoManager();
+	protected static final PhotoManager instance = new AuroraPhotoManager();
 
 	private static final Logger log = Logger.getLogger(PhotoManager.class.getName());
 
@@ -108,13 +101,17 @@ public class PhotoManager extends ObjectManager {
 		Photo result = doGetPhotoFromId(id);
 
 		if (result == null) {
-			result = PhotoFactory.getInstance().loadPhoto(id);
+			result = loadPhotoFromId(id);
 			if (result != null) {
 				doAddPhoto(result);
 			}
 		}
 
 		return result;
+	}
+
+	protected Photo loadPhotoFromId(PhotoId id) {
+		return PhotoFactory.getInstance().loadPhoto(id);
 	}
 
 	/**

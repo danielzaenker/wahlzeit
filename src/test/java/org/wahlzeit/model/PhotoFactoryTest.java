@@ -20,26 +20,24 @@
 
 package org.wahlzeit.model;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.wahlzeit.model.persistence.PersistenceTestSuite;
+import org.junit.Test;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-		PersistenceTestSuite.class,
-		AccessRightsTest.class,
-		CoordinateTest.class,
-		FlagReasonTest.class,
-		GenderTest.class,
-		GuestTest.class,
-		LocationTest.class,
-		PhotoFactoryTest.class,
-		PhotoFilterTest.class,
-		TagsTest.class,
-		UserStatusTest.class,
-		ValueTest.class
-})
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-public class ModelTestSuite {
-	/** empty **/
+public class PhotoFactoryTest {
+
+	@Test
+	public void testAuroraPhotoInstance() {
+		assertTrue(PhotoFactory.getInstance().createPhoto() instanceof AuroraPhoto);
+		assertTrue(PhotoFactory.getInstance().createPhoto(new PhotoId(0)) instanceof AuroraPhoto);
+
+		// behaviour from the original PhotoFactory
+		assertNull(PhotoFactory.getInstance().loadPhoto(new PhotoId(42)));
+	}
+
+	@Test
+	public void testPhotoFactoryInstance() {
+		assertTrue(PhotoFactory.getInstance() instanceof AuroraPhotoFactory);
+	}
 }

@@ -20,26 +20,23 @@
 
 package org.wahlzeit.model;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-import org.wahlzeit.model.persistence.PersistenceTestSuite;
+/**
+ * Specializes the PhotoFactory for the AuroraPhoto class
+ */
+public class AuroraPhotoFactory extends PhotoFactory {
+	@Override
+	public AuroraPhoto createPhoto() {
+		return new AuroraPhoto();
+	}
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
-		PersistenceTestSuite.class,
-		AccessRightsTest.class,
-		CoordinateTest.class,
-		FlagReasonTest.class,
-		GenderTest.class,
-		GuestTest.class,
-		LocationTest.class,
-		PhotoFactoryTest.class,
-		PhotoFilterTest.class,
-		TagsTest.class,
-		UserStatusTest.class,
-		ValueTest.class
-})
+	@Override
+	public AuroraPhoto createPhoto(PhotoId id) {
+		return new AuroraPhoto(id);
+	}
 
-public class ModelTestSuite {
-	/** empty **/
+	@Override
+	public AuroraPhoto loadPhoto(PhotoId id) {
+		// same behaviour as in PhotoFactory
+		return null;
+	}
 }
