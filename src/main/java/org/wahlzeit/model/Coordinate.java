@@ -21,102 +21,42 @@
 package org.wahlzeit.model;
 
 /**
- * A three dimensional cartesian coordinate
+ * A coordinate
  */
-public class Coordinate {
-	/**
-	 * x, y and z component of the coordinate
-	 */
-	private final double x;
-	private final double y;
-	private final double z;
+public interface Coordinate {
 
 	/**
-	 * Epsilon value for double comparision
+	 * Converts this coordinate to a CartesianCoordinate and returns it
+	 * @return the converted coordinate
 	 */
-	private static final double EPSILON = 0.0000001;
-
-	private static boolean almostEqual(double a, double b) {
-		return Math.abs(a - b) < EPSILON;
-	}
-
-	/**
-	 * Default constructor
-	 */
-	public Coordinate() {
-		this.x = 0.0;
-		this.y = 0.0;
-		this.z = 0.0;
-	}
-
-	/**
-	 * Creates a coordinate from a x, y and z value
-	 *
-	 * @param x
-	 * @param y
-	 * @param z
-	 */
-	public Coordinate(double x, double y, double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
+	CartesianCoordinate asCartesianCoordinate();
 
 	/**
 	 * Returns the cartesian distance from this to another coordinate
 	 *
-	 * @param other the other coordinate
+	 * @param coordinate the other coordinate
 	 * @return the calculated distance
 	 */
-	public double getDistance(Coordinate other) {
-		if (other == null) {
-			throw new IllegalArgumentException("The other coordinate must not be null");
-		}
-		double connectionX = other.x - x;
-		double connectionY = other.y - y;
-		double connectionZ = other.z - z;
-		double length = Math.sqrt(connectionX * connectionX + connectionY * connectionY + connectionZ * connectionZ);
-		return length;
-	}
+	double getCartesianDistance(Coordinate coordinate);
+
+	/**
+	 * Converts this coordinate to a SphericCoordinate and returns it
+	 * @return the converted coordinate
+	 */
+	SphericCoordinate asSphericCoordinate();
+
+	/**
+	 * Returns the central angle between this and another coordinate
+	 * @param coordinate the other coordinate
+	 * @return the calculated angle
+	 */
+	double getCentralAngle(Coordinate coordinate);
 
 	/**
 	 * Checks if this and another coordinate are the same under an epsilon value
 	 *
-	 * @param other the other coordinate
+	 * @param coordinate the other coordinate
 	 * @return true if the coordinates are the same, false otherwise
 	 */
-	public boolean isEqual(Coordinate other) {
-		if (other == null) {
-			return false;
-		}
-		return almostEqual(x, other.x) && almostEqual(y, other.y) && almostEqual(z, other.z);
-	}
-
-	/**
-	 * Forwards equals to {@link Coordinate#isEqual(Coordinate)}
-	 *
-	 * @param other the object to compare
-	 * @return false if the other object is not an instance of {@link Coordinate},
-	 *         otherwise the result of {@link Coordinate#isEqual(Coordinate)}
-	 */
-	@Override
-	public boolean equals(Object other) {
-		if (!(other instanceof Coordinate)) {
-			return false;
-		}
-		Coordinate coordinate = (Coordinate) other;
-		return isEqual(coordinate);
-	}
-
-	public double getX() {
-		return x;
-	}
-
-	public double getY() {
-		return y;
-	}
-
-	public double getZ() {
-		return z;
-	}
+	boolean isEqual(Coordinate coordinate);
 }

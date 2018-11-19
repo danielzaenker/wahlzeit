@@ -21,7 +21,7 @@
 package org.wahlzeit.model;
 
 /**
- * A location represented by cartesian coordinates
+ * A location represented by a coordinate
  */
 
 public class Location {
@@ -29,13 +29,6 @@ public class Location {
 	 * The coordinate of this location
 	 */
 	private Coordinate coordinate;
-
-	/**
-	 * Creates a location with the default coordinate
-	 */
-	public Location() {
-		this(new Coordinate());
-	}
 
 	/**
 	 * Creates a location with a coordinate

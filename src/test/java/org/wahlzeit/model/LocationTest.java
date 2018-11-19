@@ -22,22 +22,19 @@ package org.wahlzeit.model;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 public class LocationTest {
 
 	@Test
 	public void testLocation() {
-		Coordinate c1 = new Coordinate(1.7, 81.5, -4.7);
-		Coordinate c2 = new Coordinate(6.6, 5.1, -9.2);
-		Coordinate zeroCoordinate = new Coordinate();
+		CartesianCoordinate c1 = new CartesianCoordinate(1.7, 81.5, -4.7);
+		CartesianCoordinate c2 = new CartesianCoordinate(6.6, 5.1, -9.2);
 
 		Location location1 = new Location(c1);
-		Location location2 = new Location();
 		assertNotNull(location1.getCoordinate());
-		assertNotNull(location2.getCoordinate());
 		assertSame(location1.getCoordinate(), c1);
-		assertTrue(location2.getCoordinate().isEqual(zeroCoordinate));
 
 		location1.setCoordinate(c2);
 		assertSame(location1.getCoordinate(), c2);
@@ -50,7 +47,7 @@ public class LocationTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testInvalidCoordinate2() {
-		Location location = new Location();
+		Location location = new Location(new CartesianCoordinate());
 		location.setCoordinate(null);
 	}
 }
