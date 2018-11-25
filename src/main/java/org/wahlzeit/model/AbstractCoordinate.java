@@ -27,19 +27,35 @@ public abstract class AbstractCoordinate implements Coordinate {
 
 	@Override
 	public double getCartesianDistance(Coordinate coordinate) {
-		return this.asCartesianCoordinate().getCartesianDistance(coordinate);
+		assertIsNotNull(coordinate);
+		return this.asCartesianCoordinate().doGetCartesianDistance(coordinate.asCartesianCoordinate());
 	}
+
+	protected abstract double doGetCartesianDistance(CartesianCoordinate other);
 
 	@Override
 	public double getCentralAngle(Coordinate coordinate) {
-		return this.asSphericCoordinate().getCentralAngle(coordinate);
+		assertIsNotNull(coordinate);
+		return this.asSphericCoordinate().doGetCentralAngle(coordinate.asSphericCoordinate());
 	}
 
+	protected abstract double doGetCentralAngle(SphericCoordinate other);
 
 	protected static void assertIsNotNull(Coordinate coordinate) {
-		if (coordinate == null) {
+		if (!isValid(coordinate)) {
 			throw new IllegalArgumentException("The other coordinate must not be null");
 		}
+	}
+
+	@Override
+	public boolean isEqual(Coordinate other) {
+		return isValid(other) && doIsEqual(other);
+	}
+
+	protected abstract boolean doIsEqual(Coordinate other);
+
+	protected static boolean isValid(Coordinate coordinate) {
+		return coordinate != null;
 	}
 
 	@Override
@@ -60,7 +76,4 @@ public abstract class AbstractCoordinate implements Coordinate {
 		return Math.abs(a - b) < EPSILON;
 	}
 
-	protected static boolean isValid(Coordinate coordinate) {
-		return coordinate != null;
-	}
 }

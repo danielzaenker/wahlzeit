@@ -40,6 +40,22 @@ public class SphericCoordinateTest {
 	}
 
 	@Test
+	public void testInitialization() {
+		SphericCoordinate coordinate1 = new SphericCoordinate(Math.PI, 2.0 * Math.PI, 1.0);
+		SphericCoordinate coordinate2 = new SphericCoordinate(Math.PI + 0.5, 2.0 * Math.PI + 1.2, 1.0);
+		assertEquals(0.0, coordinate1.getTheta(), DELTA);
+		assertEquals(0.0, coordinate1.getPhi(), DELTA);
+		assertEquals(0.5, coordinate2.getTheta(), DELTA);
+		assertEquals(1.2, coordinate2.getPhi(), DELTA);
+		assertEquals(5.395580, c1.getPhi(), DELTA);
+	}
+
+	@Test (expected = IllegalArgumentException.class)
+	public void testInvalidInitialization() {
+		new SphericCoordinate(0.0, 0.0, -10.0);
+	}
+
+	@Test
 	public void testCentralAngle() {
 		assertEquals(0.15590972861387034, c1.getCentralAngle(c3), DELTA);
 		assertEquals(c1.getCentralAngle(c3), c3.getCentralAngle(c1), DELTA);
@@ -54,6 +70,9 @@ public class SphericCoordinateTest {
 
 	@Test
 	public void testIsEqual() {
+		Coordinate origin1 = new SphericCoordinate(3.561, 4.1235, 0.0);
+		Coordinate origin2 = new SphericCoordinate(2.412, 3.123, 0.0);
+		assertTrue(origin1.isEqual(origin2));
 		assertTrue(c1.isEqual(c2));
 		assertTrue(c2.isEqual(c1));
 		assertTrue(c1.isEqual(c1));

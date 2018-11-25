@@ -71,16 +71,16 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	public double getCartesianDistance(Coordinate coordinate) {
-		assertIsNotNull(coordinate);
-		return doGetCartesianDistance(coordinate.asCartesianCoordinate());
-	}
-
 	protected double doGetCartesianDistance(CartesianCoordinate other) {
 		double connectionX = other.getX() - this.getX();
 		double connectionY = other.getY() - this.getY();
 		double connectionZ = other.getZ() - this.getZ();
 		return Math.sqrt(connectionX * connectionX + connectionY * connectionY + connectionZ * connectionZ);
+	}
+
+	@Override
+	protected double doGetCentralAngle(SphericCoordinate other) {
+		return this.asSphericCoordinate().doGetCentralAngle(other);
 	}
 
 	@Override
@@ -92,11 +92,8 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	public boolean isEqual(Coordinate other) {
-		return isValid(other) && doIsEqual(other.asCartesianCoordinate());
-	}
-
-	protected boolean doIsEqual(CartesianCoordinate other) {
+	protected boolean doIsEqual(Coordinate coordinate) {
+		CartesianCoordinate other = coordinate.asCartesianCoordinate();
 		return  equalUnderEpsilon(this.getX(), other.getX()) &&
 				equalUnderEpsilon(this.getY(), other.getY()) &&
 				equalUnderEpsilon(this.getZ(), other.getZ());

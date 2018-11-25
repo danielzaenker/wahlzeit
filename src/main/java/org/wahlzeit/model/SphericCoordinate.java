@@ -21,12 +21,14 @@
 package org.wahlzeit.model;
 
 /**
- * A spherical coordinate represented by a theta and phi angle, plus a radius
+ * A spherical coordinate represented by a theta and phi angle, plus a radius.
+ * Theta, the latitude has the range of [0, PI)
+ * Phi, the longitude has the range of [0, 2*PI)
  */
 public class SphericCoordinate extends AbstractCoordinate {
 
 	/**
-	 * The theta and phi angle
+	 * The theta and phi angle.
 	 */
 	private final double theta;
 	private final double phi;
@@ -35,6 +37,13 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * The radius
 	 */
 	private final double radius;
+
+	/**
+	 * Constants for maximum values for normalization
+	 */
+	public static double MAX_THETA = Math.PI;
+	public static double MAX_PHI = Math.PI * 2.0;
+
 
 	public double getTheta() {
 		return theta;
@@ -48,6 +57,9 @@ public class SphericCoordinate extends AbstractCoordinate {
 		return radius;
 	}
 
+	/**
+	 * Default Constructor
+	 */
 	public SphericCoordinate() {
 		this.theta = 0.0;
 		this.phi = 0.0;
@@ -58,12 +70,28 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * Creates a SphericCoordinate from theta, phi and radius
 	 * @param theta
 	 * @param phi
-	 * @param radius
+	 * @param radius must not be negative
+	 * @throws IllegalArgumentException if radius is negative
 	 */
 	public SphericCoordinate(double theta, double phi, double radius) {
-		this.theta = theta;
-		this.phi = phi;
+		this.theta = getNormalizedAngle(theta, MAX_THETA);
+		this.phi = getNormalizedAngle(phi, MAX_PHI);
 		this.radius = radius;
+		assertValidRadius();
+	}
+
+	protected static double getNormalizedAngle(double angle, double maxAngle) {
+		double normalized = angle % maxAngle;
+		if (normalized < 0) {
+			normalized = maxAngle + normalized;
+		}
+		return normalized;
+	}
+
+	protected void assertValidRadius() {
+		if (radius < 0.0) {
+			throw new IllegalArgumentException("Radius must not be negative");
+		}
 	}
 
 	@Override
@@ -80,11 +108,6 @@ public class SphericCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	public double getCentralAngle(Coordinate coordinate) {
-		assertIsNotNull(coordinate);
-		return doGetCentralAngle(coordinate.asSphericCoordinate());
-	}
-
 	protected double doGetCentralAngle(SphericCoordinate other) {
 		double sinProduct = Math.sin(this.getTheta()) * Math.sin(other.getTheta());
 		double cosProduct = Math.cos(this.getTheta()) * Math.cos(other.getTheta());
@@ -93,13 +116,20 @@ public class SphericCoordinate extends AbstractCoordinate {
 	}
 
 	@Override
-	public boolean isEqual(Coordinate other) {
-		return isValid(other) && doIsEqual(other.asSphericCoordinate());
+	protected double doGetCartesianDistance(CartesianCoordinate other) {
+		return this.asCartesianCoordinate().doGetCartesianDistance(other);
 	}
 
-	protected boolean doIsEqual(SphericCoordinate other) {
-		return  equalUnderEpsilon(this.getTheta(), other.getTheta()) &&
+	@Override
+	protected boolean doIsEqual(Coordinate coordinate) {
+		SphericCoordinate other = coordinate.asSphericCoordinate();
+
+		//check if the radius of booth coordinate is zero
+		boolean bothInOrigin = equalUnderEpsilon(this.getRadius(), 0.0) &&
+				equalUnderEpsilon(other.getRadius(), 0.0);
+		boolean allEqual = equalUnderEpsilon(this.getTheta(), other.getTheta()) &&
 				equalUnderEpsilon(this.getPhi(), other.getPhi()) &&
 				equalUnderEpsilon(this.getRadius(), other.getRadius());
+		return  bothInOrigin || allEqual;
 	}
 }
