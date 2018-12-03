@@ -50,7 +50,7 @@ public abstract class AbstractCoordinate implements Coordinate {
 	}
 
 	protected static void assertValidCentralAngle(double angle) {
-		if (!Double.isFinite(angle) || angle > Math.PI) {
+		if (!Double.isFinite(angle) || angle > Math.PI || angle < -Math.PI) {
 			throw new IllegalStateException("Invalid central angle");
 		}
 	}
