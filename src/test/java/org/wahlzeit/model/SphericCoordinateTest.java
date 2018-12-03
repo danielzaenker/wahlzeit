@@ -43,14 +43,14 @@ public class SphericCoordinateTest {
 	public void testInitialization() {
 		SphericCoordinate coordinate1 = new SphericCoordinate(Math.PI, 2.0 * Math.PI, 1.0);
 		SphericCoordinate coordinate2 = new SphericCoordinate(Math.PI + 0.5, 2.0 * Math.PI + 1.2, 1.0);
-		assertEquals(0.0, coordinate1.getTheta(), DELTA);
+		assertEquals(Math.PI, coordinate1.getTheta(), DELTA);
 		assertEquals(0.0, coordinate1.getPhi(), DELTA);
-		assertEquals(0.5, coordinate2.getTheta(), DELTA);
-		assertEquals(1.2, coordinate2.getPhi(), DELTA);
+		assertEquals(Math.PI - 0.5, coordinate2.getTheta(), DELTA);
+		assertEquals(1.2 + Math.PI, coordinate2.getPhi(), DELTA);
 		assertEquals(5.395580, c1.getPhi(), DELTA);
 	}
 
-	@Test (expected = IllegalArgumentException.class)
+	@Test (expected = IllegalStateException.class)
 	public void testInvalidInitialization() {
 		new SphericCoordinate(0.0, 0.0, -10.0);
 	}
@@ -70,15 +70,32 @@ public class SphericCoordinateTest {
 
 	@Test
 	public void testIsEqual() {
-		Coordinate origin1 = new SphericCoordinate(3.561, 4.1235, 0.0);
-		Coordinate origin2 = new SphericCoordinate(2.412, 3.123, 0.0);
-		assertTrue(origin1.isEqual(origin2));
 		assertTrue(c1.isEqual(c2));
 		assertTrue(c2.isEqual(c1));
 		assertTrue(c1.isEqual(c1));
 		assertFalse(c1.isEqual(c3));
 		assertFalse(c3.isEqual(c2));
 		assertFalse(c1.isEqual(null));
+	}
+
+	@Test
+	public void testOriginsAreEqual() {
+		Coordinate origin1 = new SphericCoordinate(3.561, 4.1235, 0.0);
+		Coordinate origin2 = new SphericCoordinate(2.412, 3.123, 0.0);
+		assertTrue(origin1.isEqual(origin2));
+	}
+
+	@Test
+	public void polesAreEqual() {
+		Coordinate pole1 = new SphericCoordinate(Math.PI, 1.34, 5.0);
+		Coordinate pole2 = new SphericCoordinate(Math.PI, 3.83, 5.0);
+		Coordinate pole3 = new SphericCoordinate(0.0, 1.42, 5.0);
+		Coordinate pole4 = new SphericCoordinate(0.0, 0.145, 5.0);
+		Coordinate pole5 = new SphericCoordinate(0.0, 1.42, 3.6);
+		assertTrue(pole1.isEqual(pole2));
+		assertTrue(pole3.isEqual(pole4));
+		assertFalse(pole1.isEqual(pole3));
+		assertFalse(pole2.isEqual(pole5));
 	}
 
 	@Test

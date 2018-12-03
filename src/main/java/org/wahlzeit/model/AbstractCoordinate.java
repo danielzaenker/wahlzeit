@@ -28,7 +28,15 @@ public abstract class AbstractCoordinate implements Coordinate {
 	@Override
 	public double getCartesianDistance(Coordinate coordinate) {
 		assertIsNotNull(coordinate);
-		return this.asCartesianCoordinate().doGetCartesianDistance(coordinate.asCartesianCoordinate());
+		double distance = this.asCartesianCoordinate().doGetCartesianDistance(coordinate.asCartesianCoordinate());
+		assertValidDistance(distance);
+		return distance;
+	}
+
+	protected static void assertValidDistance(double distance) {
+		if (!Double.isFinite(distance) || distance < 0.0) {
+			throw new IllegalStateException("Invalid cartesian distance");
+		}
 	}
 
 	protected abstract double doGetCartesianDistance(CartesianCoordinate other);
@@ -36,7 +44,15 @@ public abstract class AbstractCoordinate implements Coordinate {
 	@Override
 	public double getCentralAngle(Coordinate coordinate) {
 		assertIsNotNull(coordinate);
-		return this.asSphericCoordinate().doGetCentralAngle(coordinate.asSphericCoordinate());
+		double angle = this.asSphericCoordinate().doGetCentralAngle(coordinate.asSphericCoordinate());
+		assertValidCentralAngle(angle);
+		return angle;
+	}
+
+	protected static void assertValidCentralAngle(double angle) {
+		if (!Double.isFinite(angle) || angle > Math.PI) {
+			throw new IllegalStateException("Invalid central angle");
+		}
 	}
 
 	protected abstract double doGetCentralAngle(SphericCoordinate other);

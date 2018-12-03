@@ -64,6 +64,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		this.theta = 0.0;
 		this.phi = 0.0;
 		this.radius = 0.0;
+		assertClassInvariants();
 	}
 
 	/**
@@ -71,13 +72,31 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param theta
 	 * @param phi
 	 * @param radius must not be negative
-	 * @throws IllegalArgumentException if radius is negative
+	 * @throws IllegalStateException if radius is negative or the angles are invalid
 	 */
 	public SphericCoordinate(double theta, double phi, double radius) {
-		this.theta = getNormalizedAngle(theta, MAX_THETA);
-		this.phi = getNormalizedAngle(phi, MAX_PHI);
+		theta = getNormalizedAngle(theta, 2.0 * Math.PI);
+		if (theta > MAX_THETA) {
+			theta = 2.0 * Math.PI - theta;
+			phi += Math.PI;
+		}
+		this.theta = theta;
+		this.phi = getNormalizedAngle(phi, 2.0 * Math.PI);
 		this.radius = radius;
-		assertValidRadius();
+		assertClassInvariants();
+	}
+
+	protected void assertClassInvariants() {
+		boolean thetaIsValid = Double.isFinite(this.getTheta()) &&
+				this.getTheta() >= 0.0 && this.getTheta() <= MAX_THETA;
+		boolean phiIsValid = Double.isFinite(this.getPhi()) &&
+				this.getPhi() >= 0.0 && this.getPhi() < MAX_PHI;
+		boolean radiusIsValid = Double.isFinite(this.getRadius()) &&
+				this.getRadius() >= 0.0;
+
+		if (!thetaIsValid || !phiIsValid || !radiusIsValid) {
+			throw new IllegalStateException("SphericCoordinate is not valid");
+		}
 	}
 
 	protected static double getNormalizedAngle(double angle, double maxAngle) {
@@ -124,12 +143,23 @@ public class SphericCoordinate extends AbstractCoordinate {
 	protected boolean doIsEqual(Coordinate coordinate) {
 		SphericCoordinate other = coordinate.asSphericCoordinate();
 
-		//check if the radius of booth coordinate is zero
+		// check if the radius of booth coordinate is zero
 		boolean bothInOrigin = equalUnderEpsilon(this.getRadius(), 0.0) &&
 				equalUnderEpsilon(other.getRadius(), 0.0);
+		if (bothInOrigin) {
+			return true;
+		}
+		boolean radiusEqual = equalUnderEpsilon(this.getRadius(), other.getRadius());
+
+		// ignore phi if booth coordinates are on the poles
+		if ((equalUnderEpsilon(this.getTheta(), MAX_THETA) && equalUnderEpsilon(other.getTheta(), MAX_THETA)) ||
+				(equalUnderEpsilon(this.getTheta(), 0.0) && equalUnderEpsilon(other.getTheta(), 0.0))) {
+			return radiusEqual;
+		}
+
 		boolean allEqual = equalUnderEpsilon(this.getTheta(), other.getTheta()) &&
 				equalUnderEpsilon(this.getPhi(), other.getPhi()) &&
-				equalUnderEpsilon(this.getRadius(), other.getRadius());
-		return  bothInOrigin || allEqual;
+				radiusEqual;
+		return allEqual;
 	}
 }

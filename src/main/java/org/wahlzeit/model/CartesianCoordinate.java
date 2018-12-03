@@ -38,6 +38,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		this.x = 0.0;
 		this.y = 0.0;
 		this.z = 0.0;
+		assertClassInvariants();
 	}
 
 	/**
@@ -51,6 +52,17 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		assertClassInvariants();
+	}
+
+	protected void assertClassInvariants() {
+		boolean xIsValid = Double.isFinite(this.getX());
+		boolean yIsValid = Double.isFinite(this.getY());
+		boolean zIsValid = Double.isFinite(this.getZ());
+
+		if (!xIsValid || !yIsValid || !zIsValid) {
+			throw new IllegalStateException("CartesianCoordinate is not valid");
+		}
 	}
 
 	public double getX() {
