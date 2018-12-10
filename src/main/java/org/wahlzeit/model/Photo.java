@@ -148,6 +148,9 @@ public class Photo extends DataObject {
 	 * @methodtype constructor
 	 */
 	public Photo(PhotoId myId) {
+		if (myId == null) {
+			throw new IllegalArgumentException("The id must not be null");
+		}
 		id = myId;
 
 		incWriteCount();
@@ -157,6 +160,9 @@ public class Photo extends DataObject {
 	 * @methodtype get
 	 */
 	public Image getImage(PhotoSize photoSize) {
+		if (photoSize == null) {
+			throw new IllegalArgumentException("The photo size must not be null");
+		}
 		return images.get(photoSize);
 	}
 
@@ -164,6 +170,12 @@ public class Photo extends DataObject {
 	 * @methodtype set
 	 */
 	public void setImage(PhotoSize photoSize, Image image) {
+		if (photoSize == null) {
+			throw new IllegalArgumentException("The new photo size must not be null");
+		}
+		if (image == null) {
+			throw new IllegalArgumentException("The new image must not be null");
+		}
 		this.images.put(photoSize, image);
 	}
 
@@ -192,6 +204,9 @@ public class Photo extends DataObject {
 	 * @methodtype set
 	 */
 	public void setOwnerId(String newName) {
+		if (newName == null) {
+			throw new IllegalArgumentException("The new name must not be null");
+		}
 		ownerId = newName;
 		incWriteCount();
 	}
@@ -200,6 +215,9 @@ public class Photo extends DataObject {
 	 * @methodtype get
 	 */
 	public String getSummary(ModelConfig cfg) {
+		if (cfg == null) {
+			throw new IllegalArgumentException("The model config must not be null");
+		}
 		return cfg.asPhotoSummary(ownerId);
 	}
 
@@ -207,6 +225,9 @@ public class Photo extends DataObject {
 	 * @methodtype get
 	 */
 	public String getCaption(ModelConfig cfg) {
+		if (cfg == null) {
+			throw new IllegalArgumentException("The model config must not be null");
+		}
 		String ownerName = UserManager.getInstance().getUserById(ownerId).getNickName();
 		return cfg.asPhotoCaption(ownerName);
 	}
@@ -237,6 +258,9 @@ public class Photo extends DataObject {
 	 *
 	 */
 	public void setOwnerLanguage(Language newLanguage) {
+		if (newLanguage == null) {
+			throw new IllegalArgumentException("The new language must not be null");
+		}
 		ownerLanguage = newLanguage;
 		incWriteCount();
 	}
@@ -245,6 +269,9 @@ public class Photo extends DataObject {
 	 * @methodtype boolean-query
 	 */
 	public boolean hasSameOwner(Photo photo) {
+		if (photo == null) {
+			throw new IllegalArgumentException("The photo must not be null");
+		}
 		return photo.getOwnerEmailAddress().equals(ownerEmailAddress);
 	}
 
@@ -259,6 +286,9 @@ public class Photo extends DataObject {
 	 * @methodtype set
 	 */
 	public void setOwnerEmailAddress(EmailAddress newEmailAddress) {
+		if (newEmailAddress == null) {
+			throw new IllegalArgumentException("The new email address must not be null");
+		}
 		ownerEmailAddress = newEmailAddress;
 		incWriteCount();
 	}
@@ -302,6 +332,9 @@ public class Photo extends DataObject {
 	 * @methodtype set
 	 */
 	public void setWidthAndHeight(int newWidth, int newHeight) {
+		if (newWidth < 0 || newHeight < 0) {
+			throw new IllegalArgumentException("newWidth and newHeight must be positive");
+		}
 		width = newWidth;
 		height = newHeight;
 
@@ -316,6 +349,9 @@ public class Photo extends DataObject {
 	 * @methodtype boolean-query
 	 */
 	public boolean hasPhotoSize(PhotoSize size) {
+		if (size == null) {
+			throw new IllegalArgumentException("The size must not be null");
+		}
 		return maxPhotoSize.asInt() >= size.asInt();
 	}
 
@@ -330,6 +366,9 @@ public class Photo extends DataObject {
 	 * @methodtype get
 	 */
 	public String getPraiseAsString(ModelConfig cfg) {
+		if (cfg == null) {
+			throw new IllegalArgumentException("The model config must not be null");
+		}
 		return cfg.asPraiseString(getPraise());
 	}
 
@@ -344,6 +383,9 @@ public class Photo extends DataObject {
 	 *
 	 */
 	public void addToPraise(int value) {
+		if (value < 1 || value > 10) {
+			throw new IllegalArgumentException("The value must be in Range [1, 10]");
+		}
 		praiseSum += value;
 		noVotes += 1;
 		incWriteCount();
@@ -367,7 +409,10 @@ public class Photo extends DataObject {
 	 * @methodtype set
 	 */
 	public void setStatus(PhotoStatus newStatus) {
-		status = newStatus;
+		if (newStatus == null) {
+			throw new IllegalArgumentException("The new status must not be null");
+		}
+ 		status = newStatus;
 		incWriteCount();
 	}
 
@@ -375,6 +420,9 @@ public class Photo extends DataObject {
 	 * @methodtype boolean-query
 	 */
 	public boolean hasTag(String tag) {
+		if (tag == null) {
+			throw new IllegalArgumentException("The tag string must not be null");
+		}
 		return tags.hasTag(tag);
 	}
 
@@ -389,6 +437,9 @@ public class Photo extends DataObject {
 	 * @methodtype set
 	 */
 	public void setTags(Tags newTags) {
+		if (newTags == null) {
+			throw new IllegalArgumentException("The tags must not be null");
+		}
 		tags = newTags;
 		incWriteCount();
 	}
@@ -406,6 +457,9 @@ public class Photo extends DataObject {
 	}
 
 	public void setEnding(String ending) {
+		if (ending == null) {
+			throw new IllegalArgumentException("The ending string must not be null");
+		}
 		this.ending = ending;
 	}
 
@@ -437,6 +491,9 @@ public class Photo extends DataObject {
 	 * @param location
 	 */
 	public void setLocation(Location location) {
+		if (location == null) {
+			throw new IllegalArgumentException("The location must not be null");
+		}
 		this.location = location;
 	}
 }

@@ -46,6 +46,9 @@ public class AuroraPhoto extends Photo {
 	 */
 	public AuroraPhoto(PhotoId id) {
 		super(id);
+		if (id == null) {
+			throw new IllegalArgumentException("The id must not be null");
+		}
 	}
 
 	/**
@@ -53,6 +56,9 @@ public class AuroraPhoto extends Photo {
 	 * @param color
 	 */
 	public void setMainColor(AuroraColor color) {
+		if (color == null) {
+			throw new IllegalArgumentException("The color must not be null");
+		}
 		mainColor = color;
 	}
 
