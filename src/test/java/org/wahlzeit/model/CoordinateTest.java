@@ -38,12 +38,12 @@ public class CoordinateTest {
 
 	@Before
 	public void initCoordinates() {
-		cc1 = new CartesianCoordinate(1.8, -2.1, 3.9);
-		cc2 = new CartesianCoordinate(1.8, -2.1, 3.9);
-		cc3 = new CartesianCoordinate(3.5, -4.3, 5.7);
-		sc1 = new SphericCoordinate(0.771558, -0.887605, 7.95173);
-		sc2 = new SphericCoordinate(0.771558, -0.887605, 7.95173);
-		sc3 = new SphericCoordinate(0.616871, -0.86217, 4.78121);
+		cc1 = CartesianCoordinate.getCartesianCoordinate(1.8, -2.1, 3.9);
+		cc2 = CartesianCoordinate.getCartesianCoordinate(1.8, -2.1, 3.9);
+		cc3 = CartesianCoordinate.getCartesianCoordinate(3.5, -4.3, 5.7);
+		sc1 = SphericCoordinate.getSphericCoordinate(0.771558, -0.887605, 7.95173);
+		sc2 = SphericCoordinate.getSphericCoordinate(0.771558, -0.887605, 7.95173);
+		sc3 = SphericCoordinate.getSphericCoordinate(0.616871, -0.86217, 4.78121);
 	}
 
 	private static void almostEqual(CartesianCoordinate c1, CartesianCoordinate c2) {

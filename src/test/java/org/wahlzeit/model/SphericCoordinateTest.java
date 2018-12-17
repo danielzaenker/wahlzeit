@@ -34,15 +34,15 @@ public class SphericCoordinateTest {
 
 	@Before
 	public void initCoordinates() {
-		c1 = new SphericCoordinate(0.771558, -0.887605, 7.95173);
-		c2 = new SphericCoordinate(0.771558, -0.887605, 7.95173);
-		c3 = new SphericCoordinate(0.616871, -0.86217, 4.78121);
+		c1 = SphericCoordinate.getSphericCoordinate(0.771558, -0.887605, 7.95173);
+		c2 = SphericCoordinate.getSphericCoordinate(0.771558, -0.887605, 7.95173);
+		c3 = SphericCoordinate.getSphericCoordinate(0.616871, -0.86217, 4.78121);
 	}
 
 	@Test
 	public void testInitialization() {
-		SphericCoordinate coordinate1 = new SphericCoordinate(Math.PI, 2.0 * Math.PI, 1.0);
-		SphericCoordinate coordinate2 = new SphericCoordinate(Math.PI + 0.5, 2.0 * Math.PI + 1.2, 1.0);
+		SphericCoordinate coordinate1 = SphericCoordinate.getSphericCoordinate(Math.PI, 2.0 * Math.PI, 1.0);
+		SphericCoordinate coordinate2 = SphericCoordinate.getSphericCoordinate(Math.PI + 0.5, 2.0 * Math.PI + 1.2, 1.0);
 		assertEquals(Math.PI, coordinate1.getTheta(), DELTA);
 		assertEquals(0.0, coordinate1.getPhi(), DELTA);
 		assertEquals(Math.PI - 0.5, coordinate2.getTheta(), DELTA);
@@ -52,7 +52,7 @@ public class SphericCoordinateTest {
 
 	@Test (expected = IllegalStateException.class)
 	public void testInvalidInitialization() {
-		new SphericCoordinate(0.0, 0.0, -10.0);
+		SphericCoordinate.getSphericCoordinate(0.0, 0.0, -10.0);
 	}
 
 	@Test
@@ -80,18 +80,18 @@ public class SphericCoordinateTest {
 
 	@Test
 	public void testOriginsAreEqual() {
-		Coordinate origin1 = new SphericCoordinate(3.561, 4.1235, 0.0);
-		Coordinate origin2 = new SphericCoordinate(2.412, 3.123, 0.0);
+		Coordinate origin1 = SphericCoordinate.getSphericCoordinate(3.561, 4.1235, 0.0);
+		Coordinate origin2 = SphericCoordinate.getSphericCoordinate(2.412, 3.123, 0.0);
 		assertTrue(origin1.isEqual(origin2));
 	}
 
 	@Test
 	public void polesAreEqual() {
-		Coordinate pole1 = new SphericCoordinate(Math.PI, 1.34, 5.0);
-		Coordinate pole2 = new SphericCoordinate(Math.PI, 3.83, 5.0);
-		Coordinate pole3 = new SphericCoordinate(0.0, 1.42, 5.0);
-		Coordinate pole4 = new SphericCoordinate(0.0, 0.145, 5.0);
-		Coordinate pole5 = new SphericCoordinate(0.0, 1.42, 3.6);
+		Coordinate pole1 = SphericCoordinate.getSphericCoordinate(Math.PI, 1.34, 5.0);
+		Coordinate pole2 = SphericCoordinate.getSphericCoordinate(Math.PI, 3.83, 5.0);
+		Coordinate pole3 = SphericCoordinate.getSphericCoordinate(0.0, 1.42, 5.0);
+		Coordinate pole4 = SphericCoordinate.getSphericCoordinate(0.0, 0.145, 5.0);
+		Coordinate pole5 = SphericCoordinate.getSphericCoordinate(0.0, 1.42, 3.6);
 		assertTrue(pole1.isEqual(pole2));
 		assertTrue(pole3.isEqual(pole4));
 		assertFalse(pole1.isEqual(pole3));

@@ -20,10 +20,14 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.SharedObjectManager;
+
 /**
  * An abstract Coordinate
  */
 public abstract class AbstractCoordinate implements Coordinate {
+
+	protected static SharedObjectManager<Coordinate> sharedObjectManager = new SharedObjectManager<>();
 
 	@Override
 	public double getCartesianDistance(Coordinate coordinate) {

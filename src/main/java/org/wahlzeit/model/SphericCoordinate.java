@@ -74,7 +74,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 	 * @param radius must not be negative
 	 * @throws IllegalStateException if radius is negative or the angles are invalid
 	 */
-	public SphericCoordinate(double theta, double phi, double radius) {
+	private SphericCoordinate(double theta, double phi, double radius) {
 		theta = getNormalizedAngle(theta, 2.0 * Math.PI);
 		if (theta > MAX_THETA) {
 			theta = 2.0 * Math.PI - theta;
@@ -84,6 +84,10 @@ public class SphericCoordinate extends AbstractCoordinate {
 		this.phi = getNormalizedAngle(phi, 2.0 * Math.PI);
 		this.radius = radius;
 		assertClassInvariants();
+	}
+
+	public static SphericCoordinate getSphericCoordinate(double theta, double phi, double radius) {
+		return sharedObjectManager.get(new SphericCoordinate(theta, phi, radius)).asSphericCoordinate();
 	}
 
 	protected void assertClassInvariants() {
@@ -118,7 +122,7 @@ public class SphericCoordinate extends AbstractCoordinate {
 		double x = this.getRadius() * Math.sin(this.getTheta()) * Math.cos(this.getPhi());
 		double y = this.getRadius() * Math.sin(this.getTheta()) * Math.sin(this.getPhi());
 		double z = this.getRadius() * Math.cos(this.getTheta());
-		return new CartesianCoordinate(x, y, z);
+		return CartesianCoordinate.getCartesianCoordinate(x, y, z);
 	}
 
 	@Override

@@ -34,9 +34,9 @@ public class CartesianCoordinateTest {
 
 	@Before
 	public void initCoordinates() {
-		c1 = new CartesianCoordinate(1.8, -2.1, 3.9);
-		c2 = new CartesianCoordinate(1.8, -2.1, 3.9);
-		c3 = new CartesianCoordinate(3.5, -4.3, -5.7);
+		c1 = CartesianCoordinate.getCartesianCoordinate(1.8, -2.1, 3.9);
+		c2 = CartesianCoordinate.getCartesianCoordinate(1.8, -2.1, 3.9);
+		c3 = CartesianCoordinate.getCartesianCoordinate(3.5, -4.3, -5.7);
 	}
 
 	@Test

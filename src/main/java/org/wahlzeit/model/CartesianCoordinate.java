@@ -34,7 +34,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	/**
 	 * Default constructor
 	 */
-	public CartesianCoordinate() {
+	private CartesianCoordinate() {
 		this.x = 0.0;
 		this.y = 0.0;
 		this.z = 0.0;
@@ -48,11 +48,15 @@ public class CartesianCoordinate extends AbstractCoordinate {
 	 * @param y
 	 * @param z
 	 */
-	public CartesianCoordinate(double x, double y, double z) {
+	private CartesianCoordinate(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 		assertClassInvariants();
+	}
+
+	public static CartesianCoordinate getCartesianCoordinate(double x, double y, double z) {
+		return sharedObjectManager.get(new CartesianCoordinate(x, y, z)).asCartesianCoordinate();
 	}
 
 	protected void assertClassInvariants() {
@@ -100,7 +104,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 		double radius = getCartesianDistance(new CartesianCoordinate());
 		double theta = Math.acos(this.getZ() / radius);
 		double phi = Math.atan2(this.getY(), this.getX());
-		return new SphericCoordinate(theta, phi, radius);
+		return SphericCoordinate.getSphericCoordinate(theta, phi, radius);
 	}
 
 	@Override
