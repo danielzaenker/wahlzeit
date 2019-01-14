@@ -20,10 +20,15 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.annotations.PatternInstace;
 import org.wahlzeit.services.LogBuilder;
 
 import java.util.logging.Logger;
 
+@PatternInstace(
+	patternName = "Abstract Factory",
+	participants = {"AbstractFactory"}
+)
 /**
  * An Abstract Factory for creating photos and related objects.
  */

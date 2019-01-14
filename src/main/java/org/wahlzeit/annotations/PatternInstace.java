@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2018 by Daniel Zänker
+ * Copyright (c) 2006-2019 by Daniel Zänker
  *
  * This file is part of the Wahlzeit photo rating application.
  *
@@ -18,21 +18,19 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package org.wahlzeit.model;
+package org.wahlzeit.annotations;
 
-import org.wahlzeit.annotations.PatternInstace;
+public @interface PatternInstace {
+	/**
+	 * The name of the used pattern
+	 * @return
+	 */
+	String patternName();
 
-@PatternInstace(
-	patternName = "Singleton",
-	participants = {"Singleton"}
-)
-/**
- * Specializes the PhotoManager for the AuroraPhoto class
- */
-public class AuroraPhotoManager extends PhotoManager {
+	/**
+	 * The role of the annotated class in this pattern
+	 * @return
+	 */
+	String[] participants();
 
-	@Override
-	protected Photo loadPhotoFromId(PhotoId id) {
-		return AuroraPhotoFactory.getInstance().loadPhoto(id);
-	}
 }

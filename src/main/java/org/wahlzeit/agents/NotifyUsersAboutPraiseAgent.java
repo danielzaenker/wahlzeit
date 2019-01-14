@@ -1,6 +1,7 @@
 package org.wahlzeit.agents;
 
 import com.google.apphosting.api.ApiProxy;
+import org.wahlzeit.annotations.PatternInstace;
 import org.wahlzeit.model.LanguageConfigs;
 import org.wahlzeit.model.ModelConfig;
 import org.wahlzeit.model.Photo;
@@ -18,7 +19,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
-
+@PatternInstace(
+	patternName = "Template Method",
+	participants = {"ConcreteClass"}
+)
 /**
  * An agent class to notify users about new praise received for their photos.
  */

@@ -21,7 +21,12 @@
 package org.wahlzeit.model;
 
 import com.googlecode.objectify.annotation.Subclass;
+import org.wahlzeit.annotations.PatternInstace;
 
+@PatternInstace(
+		patternName = "Abstract Factory",
+		participants = {"ConcreteProduct"}
+)
 /**
  * Specializes the Photo class for photos of Auroras
  */

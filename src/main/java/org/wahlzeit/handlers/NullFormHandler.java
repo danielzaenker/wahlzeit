@@ -20,11 +20,15 @@
 
 package org.wahlzeit.handlers;
 
+import org.wahlzeit.annotations.PatternInstace;
 import org.wahlzeit.model.AccessRights;
 import org.wahlzeit.model.UserSession;
 import org.wahlzeit.webparts.WebPart;
 
-
+@PatternInstace(
+	patternName = "Null Object",
+	participants = "NullObject"
+)
 /**
  * A handler class for a null web form.
  */

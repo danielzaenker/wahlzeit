@@ -20,10 +20,15 @@
 
 package org.wahlzeit.agents;
 
+import org.wahlzeit.annotations.PatternInstace;
 import org.wahlzeit.services.LogBuilder;
 
 import java.util.logging.Logger;
 
+@PatternInstace(
+	patternName = "Template Method",
+	participants = {"AbstractClass", "ConcreteClass"}
+)
 /**
  * An Agent executes background tasks.
  */

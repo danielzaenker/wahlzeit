@@ -1,12 +1,16 @@
 package org.wahlzeit.services;
 
+import org.wahlzeit.annotations.PatternInstace;
 import org.wahlzeit.model.Client;
 import org.wahlzeit.model.UserManager;
 import org.wahlzeit.model.UserSession;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
+@PatternInstace(
+	patternName = "Builder",
+	participants = {"Builder", "ConcreteBuilder"}
+)
 /**
  * Builder class for log messages, that ensures that log messages are all formatted equally.
  *

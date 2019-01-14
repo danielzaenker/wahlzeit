@@ -23,6 +23,7 @@ package org.wahlzeit.model;
 import com.google.appengine.api.images.Image;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.Work;
+import org.wahlzeit.annotations.PatternInstace;
 import org.wahlzeit.model.persistence.ImageStorage;
 import org.wahlzeit.services.LogBuilder;
 import org.wahlzeit.services.ObjectManager;
@@ -33,6 +34,10 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.logging.Logger;
 
+@PatternInstace(
+	patternName = "Singleton",
+	participants = {"Singleton"}
+)
 /**
  * A photo manager provides access to and manages photos.
  */

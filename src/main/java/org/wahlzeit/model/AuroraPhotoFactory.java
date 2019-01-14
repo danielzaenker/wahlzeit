@@ -20,6 +20,12 @@
 
 package org.wahlzeit.model;
 
+import org.wahlzeit.annotations.PatternInstace;
+
+@PatternInstace(
+		patternName = "Abstract Factory",
+		participants = {"ConcreteFactory"}
+)
 /**
  * Specializes the PhotoFactory for the AuroraPhoto class
  */
