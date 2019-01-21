@@ -1,6 +1,5 @@
 package org.wahlzeit.agents;
 
-import org.wahlzeit.annotations.PatternInstace;
 import org.wahlzeit.model.Photo;
 import org.wahlzeit.model.PhotoManager;
 import org.wahlzeit.services.LogBuilder;
@@ -12,10 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-@PatternInstace(
-	patternName = "Template Method",
-	participants = {"ConcreteClass"}
-)
 /**
  * Servlet to persist Photos that are only in the Cache.
  * As it has nothing to do with <code>UserSession</code> or UI, it

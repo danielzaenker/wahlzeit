@@ -27,7 +27,7 @@ import org.wahlzeit.webparts.WebPart;
 
 @PatternInstace(
 	patternName = "Null Object",
-	participants = "NullObject"
+	participants = {"NullObject"}
 )
 /**
  * A handler class for a null web form.
