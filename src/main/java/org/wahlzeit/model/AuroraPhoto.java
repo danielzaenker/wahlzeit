@@ -34,9 +34,9 @@ import org.wahlzeit.annotations.PatternInstace;
 public class AuroraPhoto extends Photo {
 
 	/**
-	 * The main color of the aurora in this photo
+	 * The aurora in this photo
 	 */
-	private AuroraColor mainColor = null;
+	private Aurora aurora;
 
 	/**
 	 * Default constructor
@@ -58,31 +58,18 @@ public class AuroraPhoto extends Photo {
 
 	/**
 	 * Setter method
-	 * @param color
+	 * @param aurora
 	 */
-	public void setMainColor(AuroraColor color) {
-		if (color == null) {
-			throw new IllegalArgumentException("The color must not be null");
-		}
-		mainColor = color;
+	public void setAurora(Aurora aurora) {
+		this.aurora = aurora;
 	}
 
 	/**
 	 * Getter method
 	 * @return
 	 */
-	public AuroraColor getMainColor() {
-		return mainColor;
+	public Aurora getAurora() {
+		return aurora;
 	}
 }
 
-/**
- * Visible colors of auroras. See https://en.wikipedia.org/wiki/Aurora#Visual_forms_and_colors
- */
-enum AuroraColor {
-	Red,
-	Green,
-	Blue,
-	Yellow,
-	Pink
-}
