@@ -21,6 +21,7 @@
 package org.wahlzeit.model;
 
 import org.wahlzeit.annotations.PatternInstace;
+import org.wahlzeit.services.AuroraManager;
 
 @PatternInstace(
 		patternName = "Abstract Factory",
@@ -32,12 +33,18 @@ import org.wahlzeit.annotations.PatternInstace;
 public class AuroraPhotoFactory extends PhotoFactory {
 	@Override
 	public AuroraPhoto createPhoto() {
-		return new AuroraPhoto();
+		Aurora aurora = AuroraManager.getInstance().createAurora("Default", null);
+		AuroraPhoto photo = new AuroraPhoto();
+		photo.setAurora(aurora);
+		return photo;
 	}
 
 	@Override
 	public AuroraPhoto createPhoto(PhotoId id) {
-		return new AuroraPhoto(id);
+		Aurora aurora = AuroraManager.getInstance().createAurora("Default", null);
+		AuroraPhoto photo = new AuroraPhoto(id);
+		photo.setAurora(aurora);
+		return photo;
 	}
 
 	@Override

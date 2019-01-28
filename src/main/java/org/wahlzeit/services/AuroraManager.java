@@ -29,9 +29,9 @@ import java.util.HashMap;
 public class AuroraManager extends ObjectManager {
 	protected static AuroraManager instance = new AuroraManager();
 
-	protected HashMap<String, AuroraType> typeMap;
+	protected HashMap<String, AuroraType> typeMap = new HashMap<>();
 
-	public AuroraManager getInstance() {
+	public static AuroraManager getInstance() {
 		return instance;
 	}
 
